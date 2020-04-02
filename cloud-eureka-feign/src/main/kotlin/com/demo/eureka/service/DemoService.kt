@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping
 /**
  * @author Stefan Liu
  */
-@FeignClient(value = "cloud-eureka-client")
+@FeignClient(value = "cloud-eureka-client", fallback = DemoFallbackService::class)
 interface DemoService {
     @GetMapping("/hi")
     fun sayHiFromClient(): String

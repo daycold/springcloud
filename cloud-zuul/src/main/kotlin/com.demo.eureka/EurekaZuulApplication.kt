@@ -12,14 +12,14 @@ import org.springframework.web.client.RestTemplate
  * @author Stefan Liu
  */
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableHystrix
-open class EurekaRibbonClient {
+@EnableEurekaClient
+@EnableZuulProxy
+open class EurekaZuulApplication {
     @Bean
     @LoadBalanced
     open fun getRestTemplate() = RestTemplate()
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(EurekaRibbonClient::class.java, *args)
+    SpringApplication.run(EurekaZuulApplication::class.java, *args)
 }

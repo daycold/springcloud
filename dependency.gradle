@@ -1,7 +1,5 @@
 dependencyManagement {
     dependencies {
-        dependency "org.apache.logging.log4j:log4j-api:2.11.2"
-        dependency "org.apache.logging.log4j:log4j-core:2.11.2"
         dependency "org.apache.commons:commons-lang3:3.7"
         dependency "org.apache.httpcomponents:httpmime:4.5.5"
         dependency "org.glassfish.jersey.core:jersey-client:2.26"
@@ -11,12 +9,17 @@ dependencyManagement {
         dependency "org.springframework.boot:spring-boot-starter:$springstarterVersion"
         dependency "org.springframework.boot:spring-boot-starter-actuator:$springstarterVersion"
         dependency "org.springframework.boot:spring-boot-starter-undertow:$springstarterVersion"
-        dependency("org.springframework.boot:spring-boot-starter-web:$springstarterVersion") {
-            exclude module: "spring-boot-starter-tomcat"
-        }
-        dependency "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:$springstarterVersion"
-        dependency "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:$springstarterVersion"
-        dependency "org.springframework.cloud:spring-cloud-starter-openfeign:$springstarterVersion"
+        dependency "org.springframework.boot:spring-boot-starter-web:$springstarterVersion"
+        dependency "org.springframework.cloud:spring-cloud-config-server:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-bus-amqp:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-config:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-netflix-zuul:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-openfeign:$springcloudVersion"
+        dependency "org.springframework.cloud:spring-cloud-starter-zipkin:$springcloudVersion"
         dependency "org.springframework.data:spring-data-redis:2.0.6.RELEASE"
         dependency "org.springframework:spring-context:$springframeworkVersion"
         dependency "org.springframework:spring-context-support:$springframeworkVersion"
@@ -37,6 +40,8 @@ dependencyManagement {
         dependency "javax.servlet:javax.servlet-api:3.1.0"
         dependency "joda-time:joda-time:2.9.9"
         dependency "io.springfox:springfox-swagger2:2.6.1"
+        dependency "io.zipkin.java:zipkin-autoconfigure-ui:2.12.9"
+        dependency "io.zipkin.java:zipkin-server:2.12.9"
         dependency "mysql:mysql-connector-java:5.1.46"
         dependency "redis.clients:jedis:2.9.0"
 
