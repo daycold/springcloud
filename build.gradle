@@ -16,9 +16,7 @@ plugins {
 
 subprojects {
     repositories {
-        mavenCentral()
-        maven { url 'https://repo.spring.io/snapshot' }
-        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'htts://maven.aliyun.com/nexus/content/groups/public' }
     }
 
     apply plugin: 'java'
