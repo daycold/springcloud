@@ -8,9 +8,9 @@ import org.springframework.web.client.RestTemplate
  * @author Stefan Liu
  */
 @Service
-class DemoService (private val restTemplate: RestTemplate) {
+open class DemoService (private val restTemplate: RestTemplate) {
     @HystrixCommand(fallbackMethod = "hiError")
-    fun sayHi() =
+    open fun sayHi() =
         restTemplate.getForObject("http://CLOUD-EUREKA-CLIENT/hi", String::class.java)
             ?: "failed"
 
