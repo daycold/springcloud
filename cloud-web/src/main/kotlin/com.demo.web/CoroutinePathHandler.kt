@@ -13,7 +13,7 @@ import java.util.concurrent.Executor
  */
 class CoroutinePathHandler(private val originHandler: HttpHandler) : HttpHandler {
     override fun handleRequest(exchange: HttpServerExchange) {
-        val scope = CoroutineScope(COROUTINE_POOL)
+        val scope = CoroutineScope(CoroutineUtils.COROUTINE_CONTEXT)
         exchange.putAttachment(ATTACHMENT_KEY, scope)
         exchange.dispatch(inPlaceExecutor, Runnable {
             scope.launch {
@@ -25,7 +25,6 @@ class CoroutinePathHandler(private val originHandler: HttpHandler) : HttpHandler
 
     companion object {
         val ATTACHMENT_KEY = AttachmentKey.create(CoroutineScope::class.java)!!
-        val COROUTINE_POOL = newFixedThreadPoolContext(24, "dispatcher")
         val inPlaceExecutor = Executor { it.run() }
     }
 }

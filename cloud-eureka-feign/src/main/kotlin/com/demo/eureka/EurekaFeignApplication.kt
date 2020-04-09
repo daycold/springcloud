@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-open class EurekaFeignApplication
+class EurekaFeignApplication
 
 fun main(args: Array<String>) {
     SpringApplication.run(EurekaFeignApplication::class.java, *args)

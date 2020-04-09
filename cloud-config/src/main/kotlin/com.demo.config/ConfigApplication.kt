@@ -9,7 +9,7 @@ import org.springframework.cloud.config.server.EnableConfigServer
  */
 @SpringBootApplication
 @EnableConfigServer
-open class ConfigApplication
+class ConfigApplication
 
 fun main(args: Array<String>) {
     SpringApplication.run(ConfigApplication::class.java, *args)

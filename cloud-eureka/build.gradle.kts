@@ -2,5 +2,6 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
     compile("de.codecentric:spring-boot-admin-starter-client")
 
-    compile(project(":cloud-web"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+//    compile(project(":cloud-web"))
 }

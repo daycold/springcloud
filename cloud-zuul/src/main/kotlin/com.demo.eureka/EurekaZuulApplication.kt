@@ -14,10 +14,10 @@ import org.springframework.web.client.RestTemplate
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy
-open class EurekaZuulApplication {
+class EurekaZuulApplication {
     @Bean
     @LoadBalanced
-    open fun getRestTemplate() = RestTemplate()
+    fun getRestTemplate() = RestTemplate()
 }
 
 fun main(args: Array<String>) {

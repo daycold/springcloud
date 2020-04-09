@@ -14,10 +14,10 @@ import org.springframework.web.client.RestTemplate
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableHystrix
-open class EurekaRibbonClient {
+class EurekaRibbonClient {
     @Bean
     @LoadBalanced
-    open fun getRestTemplate() = RestTemplate()
+    fun getRestTemplate() = RestTemplate()
 }
 
 fun main(args: Array<String>) {

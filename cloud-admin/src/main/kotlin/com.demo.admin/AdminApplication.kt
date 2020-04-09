@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
  */
 @SpringBootApplication
 @EnableAdminServer
-open class AdminApplication
+class AdminApplication
 
 fun main(args: Array<String>) {
     SpringApplication.run(AdminApplication::class.java, *args)
