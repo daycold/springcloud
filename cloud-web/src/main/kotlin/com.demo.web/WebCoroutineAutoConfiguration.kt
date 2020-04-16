@@ -1,11 +1,8 @@
 package com.demo.web
 
-import io.undertow.Undertow
-import org.apache.catalina.startup.Tomcat
-import org.apache.coyote.UpgradeProtocol
+import com.demo.web.handlers.CoroutineRoutingHandler
 import org.springframework.beans.factory.ObjectProvider
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer
@@ -14,17 +11,18 @@ import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomi
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory
 import org.springframework.boot.web.embedded.undertow.UndertowDeploymentInfoCustomizer
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory
+import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
-import org.xnio.SslClientAuthMode
 import java.util.stream.Collectors
-import javax.servlet.Servlet
 
 /**
  * @author Stefan Liu
  */
 @Configuration
+@ComponentScan
 @ConditionalOnWebApplication
 @AutoConfigureBefore(ServletWebServerFactoryAutoConfiguration::class)
 class WebCoroutineAutoConfiguration {
@@ -34,28 +32,24 @@ class WebCoroutineAutoConfiguration {
      */
     @Bean
     @Primary
-    @ConditionalOnClass(Servlet::class, Undertow::class, SslClientAuthMode::class)
-    fun undertowServletWebServerFactory(): UndertowServletWebServerFactory {
+    fun undertowServletWebServerFactory(applicationContext: ApplicationContext): UndertowServletWebServerFactory {
         return UndertowServletWebServerFactory().apply {
             addDeploymentInfoCustomizers(UndertowDeploymentInfoCustomizer { deploymentInfo ->
                 deploymentInfo.addInitialHandlerChainWrapper { handler ->
-                    CoroutinePathHandler(handler)
+                    CoroutineRoutingHandler(applicationContext, handler)
                 }
             })
         }
     }
 
-    @Bean
-    @Primary
-    @ConditionalOnClass(Servlet::class, Tomcat::class, UpgradeProtocol::class)
-    fun tomcatServletWebServerFactory(
+    private fun tomcatServletWebServerFactory(
         connectorCustomizers: ObjectProvider<TomcatConnectorCustomizer>,
         contextCustomizers: ObjectProvider<TomcatContextCustomizer>,
         protocolHandlerCustomizers: ObjectProvider<TomcatProtocolHandlerCustomizer<*>>
     ): TomcatServletWebServerFactory {
         return TomcatServletWebServerFactory().apply {
             tomcatContextCustomizers.add(TomcatContextCustomizer { context ->
-                context.wrapperClass = CoroutineTomcateWrapper::class.java.name
+                //                context.wrapperClass = CoroutineTomcatWrapper::class.java.name
             })
             tomcatConnectorCustomizers.addAll(connectorCustomizers.orderedStream().collect(Collectors.toList()))
             tomcatContextCustomizers.addAll(contextCustomizers.orderedStream().collect(Collectors.toList()))

@@ -1,6 +1,7 @@
 package com.demo.web
 
 import kotlinx.coroutines.newFixedThreadPoolContext
+import java.util.concurrent.Executor
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -9,4 +10,7 @@ import kotlin.coroutines.CoroutineContext
 object CoroutineUtils {
     @JvmField
     val COROUTINE_CONTEXT: CoroutineContext = newFixedThreadPoolContext(24, "dispatcher")
+
+    @JvmField
+    val inPlaceExecutor = Executor { it.run() }
 }

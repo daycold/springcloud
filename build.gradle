@@ -45,7 +45,8 @@ subprojects {
     apply from: '../dependency.gradle'
 
     configurations.all {
-//        exclude module: "spring-boot-starter-tomcat"
+        exclude module: "spring-boot-starter-tomcat"
+        exclude module: "servlet-api"
     }
 }
 
