@@ -1,16 +1,19 @@
 package com.demo.eureka
 
-import com.demo.web.CoroutineController
+import com.demo.web.bind.CoroutineController
+import com.demo.web.bind.CoroutineGet
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 /**
  * @author Stefan Liu
  */
-//@RestController
 @CoroutineController
 @RequestMapping
 class DemoController {
-    @GetMapping("hi")
+    @CoroutineGet("hi")
     suspend fun sayHi() = "name"
+
+    @GetMapping("sayHi")
+    fun hi() = "hi"
 }

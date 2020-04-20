@@ -1,5 +1,6 @@
 package com.demo.web
 
+import com.demo.web.bind.CoroutineController
 import org.springframework.beans.factory.ListableBeanFactory
 import org.springframework.beans.factory.ObjectProvider
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 /**
  * @author Stefan Liu
  */
-@Component
+//@Component
 class CoroutineControllerPostProcessor : BeanFactoryPostProcessor {
     override fun postProcessBeanFactory(beanFactory: ConfigurableListableBeanFactory) {
         val beanName = EnableWebMvcConfiguration::class.java.name

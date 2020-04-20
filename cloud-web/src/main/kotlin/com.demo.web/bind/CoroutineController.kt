@@ -1,11 +1,11 @@
-package com.demo.web
+package com.demo.web.bind
 
-import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.RestController
 
 /**
  * @author Stefan Liu
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-@Component
+@RestController
 annotation class CoroutineController

@@ -28,7 +28,6 @@ class CoroutineFunctionHandler(
 ) : HttpHandler {
     private val method = function.javaMethod!!
     private val defaultStatus: Int
-    private val params: List<ParameterData<*>>
     private val supportedInterceptors: List<CoroutineInterceptor>
 
     init {
@@ -42,14 +41,12 @@ class CoroutineFunctionHandler(
                 val annotation = annotations[index]
                 when (annotation) {
                     is RequestParam -> {
-                       list.add(ParameterData(annotation.name, parameter.javaClass, ))
+//                       list.add(ParameterData(annotation.name, parameter.javaClass, ))
                     }
                     is PathVariable -> {
-                        name = annotation.name
                         return@repeat
                     }
                     is RequestBody -> {
-                        name = ""
                         return@repeat
                     }
                     else -> throw IllegalArgumentException("unsupported arguments")

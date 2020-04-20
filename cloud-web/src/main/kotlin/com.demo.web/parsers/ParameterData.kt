@@ -25,10 +25,10 @@ data class ParameterData<T>(
             return parser as ParameterParser<T>
         }
 
-        fun <T : Any> getCollectionParser(type: Class<T>): CollectionParameterParser<T> {
-            val parser = when (type) {
-                Int::class.java ->
-            }
-        }
+//        fun <T : Any> getCollectionParser(type: Class<T>): CollectionParameterParser<T> {
+//            val parser = when (type) {
+//                Int::class.java ->
+//            }
+//        }
     }
 }

@@ -1,11 +1,16 @@
 package com.demo.web.handlers
 
-import com.demo.web.CoroutineController
+import com.demo.web.bind.CoroutineController
+import com.demo.web.bind.CoroutineMapping
 import io.undertow.server.HttpHandler
 import io.undertow.server.RoutingHandler
 import org.springframework.context.ApplicationContext
+import org.springframework.core.annotation.AnnotatedElementUtils
+import org.springframework.core.annotation.AnnotationUtils
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import kotlin.reflect.full.declaredFunctions
+import kotlin.reflect.jvm.javaMethod
 
 /**
  * @author Stefan Liu
@@ -23,9 +28,10 @@ class CoroutineRoutingHandler(context: ApplicationContext, defaultHandler: HttpH
             val prefixValues = requestMapping.value
             val prefix = if (prefixValues.isEmpty()) arrayOf("") else prefixValues
             clazzKt.declaredFunctions.forEach eachFunction@{ function ->
-                val methodMapping = RequestMappingData.getRequestMappingAnnotation(function)
-                    ?: return@eachFunction
-                val suffix = methodMapping.path
+                val methodMapping =
+                    AnnotatedElementUtils.findMergedAnnotation(function.javaMethod!!, CoroutineMapping::class.java)
+                        ?: return@eachFunction
+                val suffix = methodMapping.value
                 val handler = CoroutineFunctionHandler(function, controller)
                 val httpMethod = methodMapping.method.name
                 prefix.forEach { pre ->
