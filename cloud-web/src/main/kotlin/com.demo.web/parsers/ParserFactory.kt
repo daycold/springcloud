@@ -1,8 +1,10 @@
 package com.demo.web.parsers
 
+import java.lang.reflect.Type
+
 /**
  * @author Stefan Liu
  */
 interface ParserFactory {
-    fun<T> getParser(clazz: Class<T>): ParameterParser<T>
+    fun getParser(type: Type): ParameterParser<*>
 }

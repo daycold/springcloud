@@ -6,8 +6,8 @@ import io.undertow.util.BadRequestException
  * @author Stefan Liu
  */
 abstract class NumberParameterParser<T : Number> : ParameterParser<T> {
-    override fun parse(value: String, defaultValue: String, required: Boolean): T? {
-        val from = if (value.isBlank()) {
+    override fun parse(value: String?, defaultValue: String, required: Boolean): T? {
+        val from = if (value.isNullOrBlank()) {
             defaultValue
         } else {
             value

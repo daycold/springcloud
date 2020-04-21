@@ -6,8 +6,8 @@ import io.undertow.util.BadRequestException
  * @author Stefan Liu
  */
 object BooleanParameterParser : ParameterParser<Boolean> {
-    override fun parse(value: String, defaultValue: String, required: Boolean): Boolean? {
-        val booleanValue = if (value.isBlank()) defaultValue else value
+    override fun parse(value: String?, defaultValue: String, required: Boolean): Boolean? {
+        val booleanValue = if (value.isNullOrBlank()) defaultValue else value
         if (booleanValue.equals("true", true)) {
             return true
         }

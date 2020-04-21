@@ -4,8 +4,8 @@ package com.demo.web.parsers
  * @author Stefan Liu
  */
 abstract class CollectionParameterParser<K : Any> : ParameterParser<Collection<K>> {
-    override fun parse(value: String, defaultValue: String, required: Boolean): Collection<K>? {
-        val actualValue = if (value.isBlank()) defaultValue else value
+    override fun parse(value: String?, defaultValue: String, required: Boolean): Collection<K>? {
+        val actualValue = if (value.isNullOrBlank()) defaultValue else value
         if (actualValue.isBlank()) {
             return emptyList()
         }
@@ -43,6 +43,12 @@ object FloatCollectionParameterParser : CollectionParameterParser<Float>() {
 object BooleanCollectionParameterParser : CollectionParameterParser<Boolean>() {
     override fun parseSingle(value: String): Boolean? {
         return BooleanParameterParser.parse(value, value, false)
+    }
+}
+
+object StringCollectionParameteParser : CollectionParameterParser<String>() {
+    override fun parseSingle(value: String): String {
+        return value
     }
 }
 
