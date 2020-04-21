@@ -3,15 +3,11 @@ package com.demo.web.handlers
 import com.demo.web.CoroutineResponse
 import com.demo.web.CoroutineUtils
 import com.demo.web.io.ByteBufferBackendOutputStream
-import com.demo.web.parsers.ParameterData
 import io.undertow.server.HttpHandler
 import io.undertow.server.HttpServerExchange
 import io.undertow.util.Headers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.callSuspend
@@ -34,25 +30,6 @@ class CoroutineFunctionHandler(
         val status = function.findAnnotation<ResponseStatus>()
         defaultStatus = status?.code?.value() ?: 200
         supportedInterceptors = interceptors.filter { it.isSupported(obj, method) }
-        val list = mutableListOf<ParameterData<*>>()
-        function.parameters.forEach { parameter ->
-            val annotations = parameter.annotations
-            repeat(annotations.size) { index ->
-                val annotation = annotations[index]
-                when (annotation) {
-                    is RequestParam -> {
-//                       list.add(ParameterData(annotation.name, parameter.javaClass, ))
-                    }
-                    is PathVariable -> {
-                        return@repeat
-                    }
-                    is RequestBody -> {
-                        return@repeat
-                    }
-                    else -> throw IllegalArgumentException("unsupported arguments")
-                }
-            }
-        }
     }
 
     override fun handleRequest(exchange: HttpServerExchange) {

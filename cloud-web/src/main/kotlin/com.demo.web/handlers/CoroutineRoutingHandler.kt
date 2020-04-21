@@ -6,8 +6,6 @@ import io.undertow.server.HttpHandler
 import io.undertow.server.RoutingHandler
 import org.springframework.context.ApplicationContext
 import org.springframework.core.annotation.AnnotatedElementUtils
-import org.springframework.core.annotation.AnnotationUtils
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.jvm.javaMethod
