@@ -6,7 +6,7 @@ import io.undertow.util.BadRequestException
  * @author Stefan Liu
  */
 object StringParameterParser : ParameterParser<String> {
-    override fun parse(value: String, defaultValue: String, required: Boolean): String? {
+    override fun parse(value: String?, defaultValue: String, required: Boolean): String? {
         if (value.isNullOrEmpty()) {
             if (defaultValue.isEmpty()) {
                 if (required) {
