@@ -1,43 +1,24 @@
 dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
     compile("de.codecentric:spring-boot-admin-starter-client")
-//    compile("org.springframework.boot:spring-boot-starter-web")
-//    compile("org.springframework.boot:spring-boot-starter-webflux")
-//    compile("org.springframework.boot:spring-boot-starter-undertow")
-//    compile("javax.servlet:javax.servlet-api")
 
     compile(project(":cloud-web"))
 }
 
+task copyDependencies(type: Copy) {
+    from configurations.runtime
+    into 'build/libs/lib'
+}
+
+jar.dependsOn(copyDependencies)
+
 jar {
     manifest {
         attributes("Main-Class": "com.demo.eureka.EurekaApplicationKt")
+        attributes("Implementation-Title": project.name)
+        attributes("Implementation-Version": project.version)
     }
-    from {
-        configurations.runtime.collect {
-            zipTree(it)
-        }
+    if (!configurations.runtime.isEmpty()) {
+        manifest.attributes('Class-Path': '. lib/' + configurations.runtime.collect { it.name }.join(' lib/'))
     }
 }
-
-//task archiveClasspath(type: Jar) {
-//    dependsOn configurations.runtime
-//    appendix = 'pathing'
-//    doFirst {
-//        manifest {
-//            attributes "Class-Path": configurations.runtime.files.collect {
-//                it.toURL().toString().replaceFirst('/file:/+/', '/')
-//            }.join(' ')
-//        }
-//    }
-//}
-
-//task fatJar(type: Jar) {
-//    zip64 true
-//    manifest {
-//        attributes('Main-Class': 'com.demo.eureka.EurekaApplicationKt')
-//    }
-//    baseName = project.name
-//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-//    with jar
-//}
