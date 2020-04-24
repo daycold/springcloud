@@ -2,7 +2,7 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
     compile("de.codecentric:spring-boot-admin-starter-client")
 
-    compile(project(":cloud-web"))
+    compile(project(":cloud-web-undertow"))
 }
 
 task copyDependencies(type: Copy) {

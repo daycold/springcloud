@@ -51,6 +51,7 @@ allprojects {
     configurations.all {
         exclude module: "spring-boot-starter-tomcat"
         exclude module: "servlet-api"
+        exclude group: "ch.qos.logback"
     }
 }
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class DemoController(private val demoService: DemoService) {
     @GetMapping("/hi")
-    fun sayHi(): String {
+    fun sayHi(): String  {
         return demoService.sayHiFromClient()
     }
 }
