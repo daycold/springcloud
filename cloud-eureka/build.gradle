@@ -1,8 +1,14 @@
 dependencies {
-    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
-    compile("de.codecentric:spring-boot-admin-starter-client")
+    compileOnly("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+    compileOnly("de.codecentric:spring-boot-admin-starter-client")
+    compileOnly("org.springframework.boot:spring-boot-starter-undertow")
+    compileOnly("org.springframework.boot:spring-boot-starter-webflux")
+    compileOnly("org.slf4j:slf4j-simple")
+    compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8"
+    compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-reactor"
+    compileOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core-common'
 
-    compile(project(":cloud-web-undertow"))
+//    compile(project(":cloud-web-undertow"))
 }
 
 task copyDependencies(type: Copy) {
